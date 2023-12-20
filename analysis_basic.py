@@ -1,8 +1,26 @@
 import pandas as pd
+import numpy as np
 from linearmodels.panel.data import PanelData
 from linearmodels.panel import PanelOLS, PooledOLS, RandomEffects, compare
 from statsmodels.formula.api import ols
+from statsmodels.stats.outliers_influence import variance_inflation_factor
 
+
+def calculate_vif(df, threshold=10.0):
+    # 数値型の列のみを対象にする
+    numerical_cols = df.select_dtypes(include=[np.number]).columns
+    df_numeric = df[numerical_cols]
+
+    # VIFを計算
+    vif = pd.DataFrame()
+    vif["VIF Factor"] = [variance_inflation_factor(df_numeric.values, i) for i in range(df_numeric.shape[1])]
+    vif["features"] = df_numeric.columns
+
+    # VIFが閾値以上の変数を取得
+    print(f"全体の変数の数：{len(vif)}")
+    collinear_features = vif[vif["VIF Factor"] > threshold]["features"]
+
+    return collinear_features
 
 
 def calculate_basic(df: pd.DataFrame, column_name: str) -> tuple:
@@ -39,7 +57,13 @@ def create_model_summary(df_original: pd.DataFrame):
     year_dummy = [col for col in df_original.columns if 'year_' in col]
     df = df_original[exog + ['actual_employment_rate', 'id', 'year']]
     df = df.set_index(['id', 'year'])
-    # print(df.head())
+
+    # VIFの計算
+    collinear_features = calculate_vif(df)
+    print('多重共線性チェック')
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+        print(collinear_features)
+    print('多重共線性チェック終了')
 
     # 固定効果モデル
     # formula_fe = 'actual_employment_rate ~ ' + ' + '.join(exog) + ' + EntitEffects'
@@ -78,7 +102,6 @@ def main():
     # 固定効果モデルによる推定
     df = pd.read_csv('datasets/dummy.csv')
     create_model_summary(df)
-    pass
 
 
 if __name__ == '__main__':
