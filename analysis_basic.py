@@ -59,11 +59,11 @@ def create_model_summary(df_original: pd.DataFrame):
     df = df.set_index(['id', 'year'])
 
     # VIFの計算
-    collinear_features = calculate_vif(df)
-    print('多重共線性チェック')
-    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-        print(collinear_features)
-    print('多重共線性チェック終了')
+    # collinear_features = calculate_vif(df)
+    # print('多重共線性チェック')
+    # with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+    #     print(collinear_features)
+    # print('多重共線性チェック終了')
 
     # 固定効果モデル
     # formula_fe = 'actual_employment_rate ~ ' + ' + '.join(exog) + ' + EntitEffects'
