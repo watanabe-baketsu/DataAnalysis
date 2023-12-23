@@ -1,11 +1,5 @@
-from pprint import pprint
-
 import pandas as pd
-import numpy as np
-from linearmodels.panel.data import PanelData
-from linearmodels.panel import PanelOLS, PooledOLS, RandomEffects, compare
-from statsmodels.formula.api import ols
-from statsmodels.stats.outliers_influence import variance_inflation_factor
+from linearmodels.panel import PanelOLS, RandomEffects
 
 
 def create_model_summary(df_original: pd.DataFrame):
