@@ -1,11 +1,13 @@
 import pandas as pd
 from linearmodels.panel import PanelOLS, RandomEffects
+from statsmodels.stats.diagnostic import het_breuschpagan
 
 
-def create_model_summary(df_original: pd.DataFrame):
+def create_model_summary_and_hausman_test(df_original: pd.DataFrame):
     """
     linearmodelsによる固定効果モデル分析
     ランダム効果モデルとしての固定効果モデル分析
+    ハウスマン検定
     """
     # 説明変数の定義
     exog = ['total_regular_worker'] + [col for col in df_original.columns if 'major_class_code_' in col or 'prefecture_' in col or 'year_' in col] \
@@ -15,6 +17,7 @@ def create_model_summary(df_original: pd.DataFrame):
     df = df_original[exog + ['actual_employment_rate', 'id', 'year']]
     df = df.set_index(['id', 'year'])
 
+    # 固定効果モデル
     formula_fe = 'actual_employment_rate ~ ' + ' + '.join(exog) + \
         ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in classcode_dummy]) + \
         ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in year_dummy]) + ' + EntityEffects'
@@ -28,7 +31,12 @@ def create_model_summary(df_original: pd.DataFrame):
         ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in classcode_dummy]) + \
         ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in year_dummy])
     result_re = RandomEffects.from_formula(formula_re, df, check_rank=False).fit()
-    print(result_re) 
+    print(result_re)
+
+    # ハウスマン検定
+    bp_test = het_breuschpagan(result_re.resids, result_re.model.exog.dataframe)
+    labels = ['LM Statistic', 'LM-Test p-value', 'F-Statistic', 'F-Test p-value']
+    print(dict(zip(labels, bp_test)))
 
 
 def add_external_data(df: pd.DataFrame, path: str, new_column_name: str):
@@ -55,7 +63,7 @@ def main():
 
     # 固定効果モデルによる推定
     df = pd.read_csv('datasets/dummy_extended.csv')
-    create_model_summary(df)
+    create_model_summary_and_hausman_test(df)
 
 
 if __name__ == '__main__':
