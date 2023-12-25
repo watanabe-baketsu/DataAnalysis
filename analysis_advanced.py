@@ -25,18 +25,22 @@ def create_model_summary_and_hausman_test(df_original: pd.DataFrame):
     print(result_fe)
 
     # ランダム効果モデル
-    df = df_original[exog + ['actual_employment_rate', 'id', 'year']]
-    df = df.set_index(['id', 'year'])
     formula_re = 'actual_employment_rate ~ 1 +' + ' + '.join(exog) + \
         ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in classcode_dummy]) + \
         ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in year_dummy])
     result_re = RandomEffects.from_formula(formula_re, df, check_rank=False).fit()
     print(result_re)
 
-    # ハウスマン検定
+    # ハウスマン検定1
     bp_test = het_breuschpagan(result_re.resids, result_re.model.exog.dataframe)
     labels = ['LM Statistic', 'LM-Test p-value', 'F-Statistic', 'F-Test p-value']
+    print("ハウスマン検定1")
     print(dict(zip(labels, bp_test)))
+
+    # ハウスマン検定2
+    # restriction = 'total_regular_worker = ' + ' = '.join(classcode_dummy) + ' = ' + ' = '.join(year_dummy) + ' = 0'
+    # print("ハウスマン検定2")
+    # print(result_re.wald_test(formula=restriction))
 
 
 def add_external_data(df: pd.DataFrame, path: str, new_column_name: str):
@@ -68,4 +72,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
