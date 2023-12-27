@@ -1,6 +1,6 @@
 import pandas as pd
 
-def convert_xlsx_to_csv(path, sheet_name, output_path):
+def convert_xlsx_to_csv(path, sheet_name, output_path, header_row=0, index_col=0, nrows=None, drop_columns=[]):
     # 都道府県名の英語表記
     prefecture_dict = {
         '北海道': 'hokkaido', '青森県': 'aomori', '岩手県': 'iwate', '宮城県': 'miyagi', '秋田県': 'akita',
@@ -16,26 +16,37 @@ def convert_xlsx_to_csv(path, sheet_name, output_path):
     }
 
     # エクセルファイルの読み込み
-    df = pd.read_excel(path, sheet_name=sheet_name, index_col=0)
+    df = pd.read_excel(path, sheet_name=sheet_name, header=header_row, index_col=index_col, nrows=nrows)
 
     # 都道府県名を英語表記に変換
     df.index = df.index.map(prefecture_dict)
 
+    for column in drop_columns:
+        df.drop(column, axis=1, inplace=True)
+
     # CSVファイルに変換
     df.to_csv(output_path)
 
+def remove_last_column_from_csv(path):
+    df = pd.read_csv(path)
+    df.drop(df.columns[-1], axis=1, inplace=True)
+    df.to_csv(path, index=False)
+
 
 def main():
-    dataset_path = 'datasets/density_etc_data.xlsx'
-    sheet_name_1 = 'aging_rate'
-    sheet_name_2 = 'density'
-    sheet_name_3 = 'city_population_rate'
-    sheet_name_4 = 'cpi_regional_diff'
+    dataset_path = 'datasets/gdp.xlsx'
+    sheet_name_1 = '実数'
+    # sheet_name_2 = 'density'
+    # sheet_name_3 = 'city_population_rate'
+    # sheet_name_4 = 'cpi_regional_diff'
+    drop_columns = ['Unnamed: 0', 'Unnamed: 2', 'Unnamed: 13']
 
-    convert_xlsx_to_csv(dataset_path, sheet_name_1, 'datasets/density_etc/aging_rate.csv')
-    convert_xlsx_to_csv(dataset_path, sheet_name_2, 'datasets/density_etc/density.csv')
-    convert_xlsx_to_csv(dataset_path, sheet_name_3, 'datasets/density_etc/city_population_rate.csv')
-    convert_xlsx_to_csv(dataset_path, sheet_name_4, 'datasets/density_etc/cpi_regional_diff.csv')
+    convert_xlsx_to_csv(dataset_path, sheet_name_1, 'datasets/pref_gdp.csv', header_row=4, index_col=1, nrows=48, drop_columns=drop_columns)
+    # convert_xlsx_to_csv(dataset_path, sheet_name_2, 'datasets/density_etc/density.csv')
+    # convert_xlsx_to_csv(dataset_path, sheet_name_3, 'datasets/density_etc/city_population_rate.csv')
+    # convert_xlsx_to_csv(dataset_path, sheet_name_4, 'datasets/density_etc/cpi_regional_diff.csv')
+
+    # remove_last_column_from_csv('datasets/pref_gdp.csv')
 
     print('Done')
 
