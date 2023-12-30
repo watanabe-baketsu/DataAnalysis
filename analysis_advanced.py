@@ -75,13 +75,7 @@ def extract_effect_and_reg_analysis(df: pd.DataFrame, results: PanelEffectsResul
     """
     fe = results.estimated_effects
     df['estimated_effects'] = fe.values
-    classcode_dummy = dummy['classcode']
-    year_dummy = dummy['year']
-    prefecture_dummy = dummy['prefecture']
-    formula = 'estimated_effects ~ actual_employment_rate + ' + ' + '.join(exog) + \
-        ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in classcode_dummy]) + \
-        ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in year_dummy]) + \
-        ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in prefecture_dummy]) + ' + EntityEffects'
+    formula = 'estimated_effects ~ ' + ' + '.join(exog) + ' + EntityEffects'
     result = PanelOLS.from_formula(formula, df, check_rank=False, drop_absorbed=True).fit()
 
     print(result)
