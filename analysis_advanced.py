@@ -66,16 +66,19 @@ def create_model_summary_and_hausman_test(df_original: pd.DataFrame, mode: str =
         print("ハウスマン検定")
         print(dict(zip(labels, bp_test)))
     elif mode == 'fe_extract':
-        result_fe = fe_analysis(df, exog, {'classcode': classcode_dummy, 'year': year_dummy, 'prefecture': prefecture_dummy})
-        extract_effect_and_reg_analysis(df, result_fe, exog)
+        # result_fe = fe_analysis(df, exog, {'classcode': classcode_dummy, 'year': year_dummy, 'prefecture': prefecture_dummy})
+        # extract_effect_and_reg_analysis(df, result_fe, exog)
+        df = pd.read_csv('datasets/dummy_extended_fe.csv')
+        df = df.set_index(['id', 'year'])
+        extract_effect_and_reg_analysis(df, exog)
 
 
-def extract_effect_and_reg_analysis(df: pd.DataFrame, results: PanelEffectsResults, exog: list):
+def extract_effect_and_reg_analysis(df: pd.DataFrame, exog: list):
     """
     固定効果モデルの結果から、効果量と回帰分析を行う
     """
-    fe = results.estimated_effects
-    df['estimated_effects'] = fe.values
+    # fe = results.estimated_effects
+    # df['estimated_effects'] = fe.values
     formula = 'estimated_effects ~ ' + ' + '.join(exog) + ' + EntityEffects'
     result = PanelOLS.from_formula(formula, df, check_rank=False, drop_absorbed=True).fit()
 
