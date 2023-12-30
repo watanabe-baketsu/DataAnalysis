@@ -67,9 +67,8 @@ def create_model_summary_and_hausman_test(df_original: pd.DataFrame, mode: str =
         print(dict(zip(labels, bp_test)))
     elif mode == 'fe_extract':
         result_fe = fe_analysis(df, exog, {'classcode': classcode_dummy, 'year': year_dummy, 'prefecture': prefecture_dummy})
-        extract_effect_and_reg_analysis(df, result_fe, exog, {'classcode': classcode_dummy, 'year': year_dummy, 'prefecture': prefecture_dummy})
-
-def extract_effect_and_reg_analysis(df: pd.DataFrame, results: PanelEffectsResults, exog: list, dummy: dict[str, list]):
+        extract_effect_and_reg_analysis(df, result_fe, exog)
+def extract_effect_and_reg_analysis(df: pd.DataFrame, results: PanelEffectsResults, exog: list):
     """
     固定効果モデルの結果から、効果量と回帰分析を行う
     """
