@@ -30,7 +30,7 @@ def re_analysis(df: pd.DataFrame, exog: list, dummy: dict[str, list], target: st
     formula = f"{target} ~ 1 +" + ' + '.join(exog) + \
             ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in classcode_dummy]) + \
             ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in year_dummy]) + \
-            ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in prefecture_dummy]) + ' + EntityEffects'
+            ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in prefecture_dummy])
     result = RandomEffects.from_formula(formula, df, check_rank=False).fit()
     print(result)
     return result
