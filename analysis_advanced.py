@@ -16,6 +16,8 @@ def fe_analysis(df: pd.DataFrame, exog: list, dummy: dict[str, list], target: st
             ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in year_dummy]) + \
             ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in prefecture_dummy]) + ' + EntityEffects'
     result = PanelOLS.from_formula(formula, df, check_rank=False, drop_absorbed=True).fit()
+    with open('datasets/results_fe.txt', 'w') as f:
+        f.write(str(result))
     print(result)
     return result
 
@@ -32,6 +34,8 @@ def re_analysis(df: pd.DataFrame, exog: list, dummy: dict[str, list], target: st
             ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in year_dummy]) + \
             ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in prefecture_dummy])
     result = RandomEffects.from_formula(formula, df, check_rank=False).fit()
+    with open('datasets/results_re.txt', 'w') as f:
+        f.write(str(result))
     print(result)
     return result
 
@@ -81,6 +85,9 @@ def extract_effect_and_reg_analysis(df: pd.DataFrame, exog: list):
     # df['estimated_effects'] = fe.values
     formula = 'estimated_effects ~ ' + ' + '.join(exog) + ' + EntityEffects'
     result = PanelOLS.from_formula(formula, df, check_rank=False, drop_absorbed=True).fit()
+
+    with open('datasets/results_fe_extract.txt', 'w') as f:
+        f.write(str(result))
 
     print(result)
 
@@ -140,7 +147,7 @@ def main():
 
     # 固定効果モデルによる推定
     df = pd.read_csv('datasets/dummy_extended.csv')
-    create_model_summary_and_hausman_test(df, mode='fe_extract')
+    create_model_summary_and_hausman_test(df, mode='fe_re')
 
     # df = filter_by_year_and_remove_unused_dummy(df, target_year)
     # df = add_external_data(df, 'datasets/pref_gdp.csv', 'pref_gdp')
