@@ -83,23 +83,28 @@ def create_model_summary(df_original: pd.DataFrame):
 
 def main():
     # basic analysis
-    # df = pd.read_csv('datasets/panel_final.csv')
-    # target_columns = [
-    #     'num_office', 
-    #     'num_regular_worker', 
-    #     'num_parttime_worker', 
-    #     'total_regular_worker', 
-    #     'num_legal_worker', 
-    #     'total_disability',
-    #     'new_total_disability',
-    #     'actual_employment_rate',
-    #     'num_deficient'
-    # ]
-    # create_basic_analysis(df, target_columns, 'datasets/analysis/basic.csv')
+    df = pd.read_csv('datasets/dummy_extended.csv')
+    target_columns = [
+        'num_office', 
+        'num_regular_worker', 
+        'num_parttime_worker', 
+        'total_regular_worker', 
+        'num_legal_worker', 
+        'total_disability',
+        'new_total_disability',
+        'actual_employment_rate',
+        'num_deficient',
+        'aging_rate',
+        'density',
+        'city_population_rate',
+        'cpi_regional_diff'
+    ]
+    create_basic_analysis(df, target_columns, 'datasets/analysis/basic.csv')
+    
 
     # 固定効果モデルによる推定
-    df = pd.read_csv('datasets/dummy.csv')
-    create_model_summary(df)
+    # df = pd.read_csv('datasets/dummy.csv')
+    # create_model_summary(df)
 
 
 if __name__ == '__main__':

@@ -146,8 +146,8 @@ def main():
     # target_year = [2014, 2015, 2016, 2017, 2018, 2019, 2020]
 
     # 固定効果モデルによる推定
-    df = pd.read_csv('datasets/dummy_extended.csv')
-    create_model_summary_and_hausman_test(df, mode='fe_re')
+    df = pd.read_csv('datasets/dummy_extended_fe.csv')
+    create_model_summary_and_hausman_test(df, mode='fe_extract')
 
     # df = filter_by_year_and_remove_unused_dummy(df, target_year)
     # df = add_external_data(df, 'datasets/pref_gdp.csv', 'pref_gdp')
