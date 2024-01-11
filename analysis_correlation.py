@@ -61,7 +61,7 @@ def main():
     aer_df = extract_actual_employment_rate(aer_df, 2020)
 
     merged_df = merge_dfs_on_pref(df, aer_df)
-    plot_correlation(merged_df, save_path='datasets/correlation.pdf')
+    plot_correlation(merged_df, save_path='results/correlation.pdf')
 
 
 if __name__ == '__main__':
