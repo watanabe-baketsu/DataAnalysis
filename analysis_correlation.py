@@ -90,6 +90,43 @@ class Plotter2:
         else:
             plt.show()
 
+    def plot_correlation_aer_2(self, year: int, filter_by: int, save_path: str = None):
+        df_extended = pd.read_csv('datasets/dummy.csv')
+        df_merged = pd.merge(self.df, df_extended[['id', 'major_class_name']], on='id', how='left')
+        major_class_names = df_merged['major_class_name'].unique()
+        fig, axs = plt.subplots(len(major_class_names), figsize=(10, 5*len(major_class_names)))
+        for i, major_class_name in enumerate(major_class_names):
+            df_year = df_merged[(df_merged['year'] == year) & (df_merged['total_regular_worker'] <= filter_by) & (df_merged['major_class_name'] == major_class_name)]
+            axs[i].scatter(df_year['total_regular_worker'], df_year['actual_employment_rate'])
+            axs[i].set_xlabel('常用労働者総数', fontsize=8)
+            axs[i].set_ylabel('実雇用率', fontsize=8)
+            axs[i].set_title(f'産業分類名：{major_class_name}の実雇用率と常用労働者総数の相関({year}年)', fontsize=10)
+            correlation = df_year['total_regular_worker'].corr(df_year['actual_employment_rate'])
+            axs[i].text(0.05, 0.95, f'相関係数: {correlation:.2f}', transform=axs[i].transAxes, fontsize=8, verticalalignment='top')
+        plt.tight_layout()
+        if save_path:
+            plt.savefig(save_path, format='pdf')
+        else:
+            plt.show()
+    def plot_correlation_effects_2(self, year: int, filter_by: int, save_path: str = None):
+        df_extended = pd.read_csv('datasets/dummy.csv')
+        df_merged = pd.merge(self.df, df_extended[['id', 'major_class_name']], on='id', how='left')
+        major_class_names = df_merged['major_class_name'].unique()
+        fig, axs = plt.subplots(len(major_class_names), figsize=(10, 5*len(major_class_names)))
+        for i, major_class_name in enumerate(major_class_names):
+            df_year = df_merged[(df_merged['year'] == year) & (df_merged['total_regular_worker'] <= filter_by) & (df_merged['major_class_name'] == major_class_name)]
+            axs[i].scatter(df_year['total_regular_worker'], df_year['estimated_effects'])
+            axs[i].set_xlabel('常用労働者総数', fontsize=8)
+            axs[i].set_ylabel('固定効果量', fontsize=8)
+            axs[i].set_title(f'産業分類名：{major_class_name}の固定効果量と常用労働者総数の相関({year}年)', fontsize=10)
+            correlation = df_year['total_regular_worker'].corr(df_year['estimated_effects'])
+            axs[i].text(0.05, 0.95, f'相関係数: {correlation:.2f}', transform=axs[i].transAxes, fontsize=8, verticalalignment='top')
+        plt.tight_layout()
+        if save_path:
+            plt.savefig(save_path, format='pdf')
+        else:
+            plt.show()
+
 
 def exec_plot_1(target_year: int):
     data_path = 'datasets/category_pref_gdp.csv'
@@ -111,10 +148,17 @@ def exec_plot_2():
         plotter.plot_correlation_aer(year, save_path=f'results/correlation_aer_trw/{year}.pdf')
         plotter.plot_correlation_effects(year, save_path=f'results/correlation_effects_trw/{year}.pdf')
 
+def exec_plot_3():
+    dummy_data_path = 'datasets/dummy_extended_fe.csv'
+    plotter = Plotter2(dummy_data_path)
+    for year in range(2014, 2023):
+        plotter.plot_correlation_aer_2(year, 1000, save_path=f'results/correlation_aer_trw_2/{year}.pdf')
+        plotter.plot_correlation_effects_2(year, 1000, save_path=f'results/correlation_effects_trw_2/{year}.pdf')
+
 def main():
     # exec_plot_1(2019)
-    exec_plot_2()
-
+    # exec_plot_2()
+    exec_plot_3()
 
 if __name__ == '__main__':
     main()
