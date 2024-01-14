@@ -3,8 +3,8 @@
 Dep. Variable:     actual_employment_rate   R-squared:                       0.028
 Model:                                OLS   Adj. R-squared:                  0.027
 Method:                     Least Squares   F-statistic:                     20.22
-Date:                    Thu, 11 Jan 2024   Prob (F-statistic):          6.18e-225
-Time:                            19:13:37   Log-Likelihood:            -1.1618e+05
+Date:                    Sun, 14 Jan 2024   Prob (F-statistic):          6.18e-225
+Time:                            10:24:14   Log-Likelihood:            -1.1618e+05
 No. Observations:                   44854   AIC:                         2.325e+05
 Df Residuals:                       44789   BIC:                         2.330e+05
 Df Model:                              64                                         

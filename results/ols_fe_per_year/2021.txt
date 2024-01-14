@@ -1,101 +1,101 @@
                             OLS Regression Results                            
 ==============================================================================
-Dep. Variable:      estimated_effects   R-squared:                       0.759
-Model:                            OLS   Adj. R-squared:                  0.758
-Method:                 Least Squares   F-statistic:                     2202.
-Date:                Thu, 11 Jan 2024   Prob (F-statistic):               0.00
-Time:                        19:28:56   Log-Likelihood:            -1.1465e+05
-No. Observations:               44854   AIC:                         2.294e+05
+Dep. Variable:      estimated_effects   R-squared:                       0.985
+Model:                            OLS   Adj. R-squared:                  0.985
+Method:                 Least Squares   F-statistic:                 4.715e+04
+Date:                Sun, 14 Jan 2024   Prob (F-statistic):               0.00
+Time:                        10:25:54   Log-Likelihood:            -1.1467e+05
+No. Observations:               44854   AIC:                         2.295e+05
 Df Residuals:                   44789   BIC:                         2.300e+05
 Df Model:                          64                                         
 Covariance Type:            nonrobust                                         
 ========================================================================================
                            coef    std err          t      P>|t|      [0.025      0.975]
 ----------------------------------------------------------------------------------------
-total_regular_worker    4.9e-05   1.18e-05      4.170      0.000     2.6e-05     7.2e-05
-prefecture_aichi         2.0585      0.062     33.323      0.000       1.937       2.180
-prefecture_akita       -47.1659      0.149   -317.579      0.000     -47.457     -46.875
-prefecture_aomori        2.0949      0.137     15.345      0.000       1.827       2.362
-prefecture_chiba         2.0356      0.102     19.868      0.000       1.835       2.236
-prefecture_ehime         4.4306      0.143     30.978      0.000       4.150       4.711
-prefecture_fukui         0.9188      0.165      5.554      0.000       0.595       1.243
-prefecture_fukuoka      -2.4830      0.077    -32.191      0.000      -2.634      -2.332
-prefecture_fukushima     1.3017      0.119     10.910      0.000       1.068       1.536
-prefecture_gifu          2.4526      0.115     21.287      0.000       2.227       2.678
-prefecture_gunma         2.0553      0.113     18.241      0.000       1.834       2.276
-prefecture_hiroshima     0.8611      0.095      9.029      0.000       0.674       1.048
-prefecture_hokkaido      0.9213      0.080     11.583      0.000       0.765       1.077
-prefecture_hyogo         2.6757      0.076     35.044      0.000       2.526       2.825
-prefecture_ibaraki       1.9269      0.121     15.934      0.000       1.690       2.164
-prefecture_ishikawa      2.2332      0.135     16.519      0.000       1.968       2.498
-prefecture_iwate         3.8205      0.141     27.071      0.000       3.544       4.097
-prefecture_kagawa        2.1198      0.144     14.671      0.000       1.837       2.403
-prefecture_kagoshima     1.9661      0.126     15.552      0.000       1.718       2.214
-prefecture_kanagawa      1.0087      0.071     14.115      0.000       0.869       1.149
-prefecture_kochi         4.2468      0.190     22.296      0.000       3.873       4.620
-prefecture_kumamoto     -0.7883      0.136     -5.779      0.000      -1.056      -0.521
-prefecture_kyoto         2.4853      0.104     23.977      0.000       2.282       2.688
-prefecture_mie           2.2469      0.137     16.457      0.000       1.979       2.515
-prefecture_miyagi        1.0029      0.118      8.467      0.000       0.771       1.235
-prefecture_miyazaki      0.3802      0.160      2.372      0.018       0.066       0.694
-prefecture_nagano       -2.5241      0.116    -21.841      0.000      -2.751      -2.298
-prefecture_nagasaki      0.2168      0.139      1.558      0.119      -0.056       0.490
-prefecture_nara          1.2806      0.177      7.225      0.000       0.933       1.628
-prefecture_niigata       3.8012      0.100     38.051      0.000       3.605       3.997
-prefecture_oita          0.8498      0.154      5.508      0.000       0.547       1.152
-prefecture_okayama       3.9801      0.119     33.335      0.000       3.746       4.214
-prefecture_okinawa      -2.9952      0.138    -21.701      0.000      -3.266      -2.725
-prefecture_osaka         2.3332      0.058     40.325      0.000       2.220       2.447
-prefecture_saga         -9.8560      0.172    -57.266      0.000     -10.193      -9.519
-prefecture_saitama       1.2050      0.087     13.910      0.000       1.035       1.375
-prefecture_shiga         1.5783      0.158      9.992      0.000       1.269       1.888
-prefecture_shimane       3.1282      0.175     17.903      0.000       2.786       3.471
-prefecture_shizuoka     15.1127      0.086    176.531      0.000      14.945      15.280
-prefecture_tochigi       2.5780      0.126     20.396      0.000       2.330       2.826
-prefecture_tokushima    -2.9312      0.200    -14.621      0.000      -3.324      -2.538
-prefecture_tottori      -0.5638      0.192     -2.932      0.003      -0.941      -0.187
-prefecture_toyama        3.6652      0.136     26.979      0.000       3.399       3.932
-prefecture_wakayama      2.9702      0.169     17.625      0.000       2.640       3.300
-prefecture_yamagata      2.6500      0.131     20.286      0.000       2.394       2.906
-prefecture_yamaguchi     5.1344      0.142     36.180      0.000       4.856       5.413
-prefecture_yamanashi     2.4133      0.183     13.171      0.000       2.054       2.772
-major_class_code_A       1.8318      0.275      6.672      0.000       1.294       2.370
-major_class_code_B      -0.0892      0.835     -0.107      0.915      -1.727       1.548
-major_class_code_C      -0.1677      0.501     -0.335      0.738      -1.149       0.813
-major_class_code_D      -0.3571      0.076     -4.691      0.000      -0.506      -0.208
-major_class_code_F      -0.6035      0.263     -2.298      0.022      -1.118      -0.089
-major_class_code_G      -0.8034      0.078    -10.342      0.000      -0.956      -0.651
-major_class_code_H       0.0114      0.059      0.194      0.847      -0.104       0.126
-major_class_code_I      -0.5404      0.046    -11.742      0.000      -0.631      -0.450
-major_class_code_J      -0.2767      0.121     -2.280      0.023      -0.515      -0.039
-major_class_code_K      -0.4662      0.114     -4.078      0.000      -0.690      -0.242
-major_class_code_L      -0.5673      0.093     -6.102      0.000      -0.750      -0.385
-major_class_code_M      -0.1238      0.096     -1.291      0.197      -0.312       0.064
-major_class_code_N       0.8666      0.098      8.835      0.000       0.674       1.059
-major_class_code_O      -0.7067      0.100     -7.074      0.000      -0.903      -0.511
-major_class_code_P       0.6558      0.048     13.541      0.000       0.561       0.751
-major_class_code_Q      -0.3417      0.157     -2.183      0.029      -0.649      -0.035
-major_class_code_R       0.0891      0.057      1.551      0.121      -0.024       0.202
-year_2015             8.067e-17   7.76e-18     10.401      0.000    6.55e-17    9.59e-17
-year_2016            -6.914e-16   3.32e-17    -20.794      0.000   -7.57e-16   -6.26e-16
+total_regular_worker  4.022e-05   1.18e-05      3.421      0.001    1.72e-05    6.33e-05
+prefecture_aichi         0.3795      0.062      6.140      0.000       0.258       0.501
+prefecture_akita        -0.0563      0.149     -0.379      0.705      -0.348       0.235
+prefecture_aomori        1.3818      0.137     10.117      0.000       1.114       1.649
+prefecture_chiba        -0.2753      0.103     -2.685      0.007      -0.476      -0.074
+prefecture_ehime         0.8390      0.143      5.863      0.000       0.559       1.119
+prefecture_fukui        -0.5833      0.165     -3.525      0.000      -0.908      -0.259
+prefecture_fukuoka      -3.6780      0.077    -47.658      0.000      -3.829      -3.527
+prefecture_fukushima     0.6315      0.119      5.291      0.000       0.398       0.865
+prefecture_gifu          1.0996      0.115      9.540      0.000       0.874       1.326
+prefecture_gunma         0.4553      0.113      4.038      0.000       0.234       0.676
+prefecture_hiroshima    -1.8928      0.095    -19.837      0.000      -2.080      -1.706
+prefecture_hokkaido      0.5857      0.080      7.360      0.000       0.430       0.742
+prefecture_hyogo        -0.1590      0.076     -2.082      0.037      -0.309      -0.009
+prefecture_ibaraki      -0.5394      0.121     -4.458      0.000      -0.777      -0.302
+prefecture_ishikawa      1.3135      0.135      9.711      0.000       1.048       1.579
+prefecture_iwate         2.4549      0.141     17.387      0.000       2.178       2.732
+prefecture_kagawa        0.6727      0.145      4.654      0.000       0.389       0.956
+prefecture_kagoshima    -1.2659      0.126    -10.008      0.000      -1.514      -1.018
+prefecture_kanagawa      0.1920      0.072      2.685      0.007       0.052       0.332
+prefecture_kochi         2.4460      0.191     12.835      0.000       2.072       2.819
+prefecture_kumamoto     -1.0303      0.136     -7.549      0.000      -1.298      -0.763
+prefecture_kyoto         0.1523      0.104      1.469      0.142      -0.051       0.356
+prefecture_mie           0.9597      0.137      7.026      0.000       0.692       1.227
+prefecture_miyagi        1.0517      0.119      8.874      0.000       0.819       1.284
+prefecture_miyazaki     -1.9004      0.160    -11.854      0.000      -2.215      -1.586
+prefecture_nagano       -3.2367      0.116    -27.994      0.000      -3.463      -3.010
+prefecture_nagasaki     -2.7427      0.139    -19.698      0.000      -3.016      -2.470
+prefecture_nara          0.8506      0.177      4.797      0.000       0.503       1.198
+prefecture_niigata      -1.0186      0.100    -10.192      0.000      -1.214      -0.823
+prefecture_oita         -3.9338      0.154    -25.482      0.000      -4.236      -3.631
+prefecture_okayama       0.5618      0.119      4.703      0.000       0.328       0.796
+prefecture_okinawa       0.5743      0.138      4.159      0.000       0.304       0.845
+prefecture_osaka        -0.4200      0.058     -7.256      0.000      -0.533      -0.307
+prefecture_saga        -10.4916      0.172    -60.929      0.000     -10.829     -10.154
+prefecture_saitama      -0.0793      0.087     -0.915      0.360      -0.249       0.091
+prefecture_shiga         0.0699      0.158      0.442      0.658      -0.240       0.380
+prefecture_shimane      -0.0573      0.175     -0.328      0.743      -0.400       0.285
+prefecture_shizuoka     11.9798      0.086    139.868      0.000      11.812      12.148
+prefecture_tochigi       1.1679      0.126      9.234      0.000       0.920       1.416
+prefecture_tokushima    -2.3517      0.201    -11.725      0.000      -2.745      -1.959
+prefecture_tottori       0.1593      0.192      0.828      0.408      -0.218       0.536
+prefecture_toyama        0.2540      0.136      1.869      0.062      -0.012       0.520
+prefecture_wakayama      2.7616      0.169     16.380      0.000       2.431       3.092
+prefecture_yamagata      2.2639      0.131     17.323      0.000       2.008       2.520
+prefecture_yamaguchi     0.1614      0.142      1.137      0.256      -0.117       0.440
+prefecture_yamanashi     0.8861      0.183      4.834      0.000       0.527       1.245
+major_class_code_A       1.0788      0.277      3.898      0.000       0.536       1.621
+major_class_code_B   -1439.9743      0.836  -1722.754      0.000   -1441.613   -1438.336
+major_class_code_C      -0.5232      0.514     -1.017      0.309      -1.531       0.485
+major_class_code_D      -0.2893      0.076     -3.795      0.000      -0.439      -0.140
+major_class_code_F      -0.5256      0.267     -1.965      0.049      -1.050      -0.001
+major_class_code_G      -0.7455      0.078     -9.588      0.000      -0.898      -0.593
+major_class_code_H       0.1166      0.059      1.988      0.047       0.002       0.232
+major_class_code_I      -0.5867      0.046    -12.748      0.000      -0.677      -0.496
+major_class_code_J      -0.5444      0.122     -4.480      0.000      -0.783      -0.306
+major_class_code_K      -0.4768      0.115     -4.155      0.000      -0.702      -0.252
+major_class_code_L      -0.6086      0.093     -6.556      0.000      -0.791      -0.427
+major_class_code_M      -0.1667      0.096     -1.740      0.082      -0.355       0.021
+major_class_code_N       0.8563      0.099      8.690      0.000       0.663       1.049
+major_class_code_O      -0.6035      0.100     -6.035      0.000      -0.799      -0.407
+major_class_code_P       0.5865      0.048     12.104      0.000       0.492       0.681
+major_class_code_Q      -0.7863      0.156     -5.037      0.000      -1.092      -0.480
+major_class_code_R       0.0739      0.057      1.287      0.198      -0.039       0.186
+year_2015             1.087e-16   2.19e-18     49.579      0.000    1.04e-16    1.13e-16
+year_2016            -2.379e-15   3.83e-17    -62.062      0.000   -2.45e-15    -2.3e-15
 year_2017                     0          0        nan        nan           0           0
 year_2018                     0          0        nan        nan           0           0
 year_2019                     0          0        nan        nan           0           0
 year_2020                     0          0        nan        nan           0           0
-year_2021                1.1634      0.017     67.615      0.000       1.130       1.197
+year_2021               -0.2080      0.017    -12.082      0.000      -0.242      -0.174
 year_2022                     0          0        nan        nan           0           0
-aging_rate              -0.3227      0.004    -74.004      0.000      -0.331      -0.314
-density                 -0.0167      0.015     -1.135      0.256      -0.046       0.012
-city_population_rate    -0.1510      0.015    -10.392      0.000      -0.179      -0.123
-cpi_regional_diff        0.2233      0.004     54.242      0.000       0.215       0.231
+aging_rate               0.0299      0.004      6.854      0.000       0.021       0.038
+density                  0.1217      0.015      8.252      0.000       0.093       0.151
+city_population_rate    -0.0411      0.015     -2.827      0.005      -0.070      -0.013
+cpi_regional_diff       -0.0771      0.004    -18.715      0.000      -0.085      -0.069
 ==============================================================================
-Omnibus:                    95064.758   Durbin-Watson:                   1.928
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):        505910421.935
-Skew:                          18.594   Prob(JB):                         0.00
-Kurtosis:                     521.955   Cond. No.                     1.79e+16
+Omnibus:                    94993.314   Durbin-Watson:                   1.929
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):        504175561.969
+Skew:                          18.562   Prob(JB):                         0.00
+Kurtosis:                     521.064   Cond. No.                     1.44e+16
 ==============================================================================
 
 Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-[2] The smallest eigenvalue is 2.36e-22. This might indicate that there are
+[2] The smallest eigenvalue is 3.64e-22. This might indicate that there are
 strong multicollinearity problems or that the design matrix is singular.

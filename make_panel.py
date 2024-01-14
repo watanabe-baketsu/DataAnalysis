@@ -192,7 +192,13 @@ def add_major_class_code_and_name(panel_data: pd.DataFrame, class_code_data_path
     df_class_code = pd.read_csv(class_code_data_path)
     df_class_code['middle_class_code'] = df_class_code['middle_class_code'].astype(str).str.zfill(2)
 
-    df_merged = pd.merge(panel_data, df_class_code, on='middle_class_code', how='left')
+    df_2022 = panel_data[panel_data['year'] == 2022].copy()
+    df_2022 = df_2022.merge(df_class_code, on='middle_class_code', how='left')
+
+    df_other_years = panel_data[panel_data['year'] != 2022].copy()
+    df_other_years = df_other_years.merge(df_2022[['id', 'major_class_code', 'major_class_name']], on='id', how='left')
+
+    df_merged = pd.concat([df_2022, df_other_years])
     df_merged.insert(5, 'major_class_code', df_merged.pop(item='major_class_code'))
     df_merged.insert(6, 'major_class_name', df_merged.pop(item='major_class_name'))
     return df_merged
@@ -201,6 +207,18 @@ def add_major_class_code_and_name(panel_data: pd.DataFrame, class_code_data_path
 def convert_prefecture_name(df: pd.DataFrame) -> pd.DataFrame:
     df['prefecture'] = df['prefecture'].map(prefecture_dict)
     return df
+
+
+def is_valid_num_columns(df: pd.DataFrame) -> bool:
+    invalid_codes = []
+    major_class_codes = df['major_class_code'].unique().tolist()
+    for major_class_code in major_class_codes:
+        if len(df[df['major_class_code'] == major_class_code]) % 9 != 0:
+            invalid_codes.append(major_class_code)
+    if len(invalid_codes) > 0:
+        print(f"invalid codes: {invalid_codes}")
+        return False
+    return True
 
 
 def main():
@@ -224,19 +242,23 @@ def main():
 
     # add prefecture, major_class_code columns
     df_panel_base = add_prefecture_to_panel('datasets/dic/post_to_prefecture.CSV', df_filtered_by_name)
+
+    df_panel_base = add_id_to_name(df_panel_base)
     # create classcode dictionary
     # create_classcode_csv('datasets/dic/class_code.csv', save_path='datasets/dic/class_code_custom.csv')
     df_panel_base = add_major_class_code_and_name(df_panel_base, 'datasets/dic/class_code_custom.csv')
-    df_panel_base = add_id_to_name(df_panel_base)
     print(df_panel_base.shape)
     df_panel_base = convert_prefecture_name(df_panel_base)
-    df_panel_base.to_csv('datasets/panel_base.csv', index=False)
+    df_panel_base = df_panel_base.sort_values(['id', 'year'])
+    df_panel_base.to_csv('datasets/panel/panel_base.csv', index=False)
     print(f"データに存在している県の数：{df_panel_base['prefecture'].nunique()}")
     print(f"データに存在している企業数：{df_panel_base['name'].nunique()}")
 
     # create panel_final.csv
     df_panel_final = df_panel_base.drop(columns=['postcode', 'address', 'tel'])
-    df_panel_final.to_csv('datasets/panel_final.csv', index=False)
+    df_panel_final.to_csv('datasets/panel/panel_final.csv', index=False)
+    if is_valid_num_columns(df_panel_final):
+        print("OK to use this panel data.")
 
 
 if __name__=='__main__':
