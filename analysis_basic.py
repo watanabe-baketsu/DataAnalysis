@@ -32,15 +32,16 @@ def calculate_basic(df: pd.DataFrame, column_name: str) -> tuple:
     min_value = df[column_name].min()
     q1 = df[column_name].quantile(0.25)
     q3 = df[column_name].quantile(0.75)
+    std_dev = df[column_name].std()  # 標準偏差を計算
 
-    return (column_name, mean, median, max_value, min_value, q1, q3, missing_values_count)
+    return (column_name, mean, median, max_value, min_value, q1, q3, std_dev, missing_values_count)
 
 
 def create_basic_analysis(target_df: pd.DataFrame, target_columns: list, save_path: str):
     results = []
     for target_column in target_columns:
         results.append(calculate_basic(target_df, target_column))
-    df_results = pd.DataFrame(results, columns=['column_name', 'mean', 'median', 'max_value', 'min_value', 'q1', 'q3', 'missing_values_count'])
+    df_results = pd.DataFrame(results, columns=['column_name', 'mean', 'median', 'max_value', 'min_value', 'q1', 'q3', 'std_dev', 'missing_values_count'])
     df_results.to_csv(save_path, index=False)
 
 
@@ -70,8 +71,6 @@ def create_model_summary(df_original: pd.DataFrame):
         ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in year_dummy]) + ' + EntityEffects'
     result_fe = PanelOLS.from_formula(formula_fe, df, check_rank=False, drop_absorbed=True).fit()
     print(result_fe)
-    with open('results/basic/results_fe.txt', 'w') as f:
-        f.write(str(result_fe))
 
     # ランダム効果モデル
     df = df_original[exog + ['actual_employment_rate', 'id', 'year']]
@@ -80,9 +79,7 @@ def create_model_summary(df_original: pd.DataFrame):
         ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in classcode_dummy]) + \
         ' + ' + ' + '.join([f'total_regular_worker*{dummy}' for dummy in year_dummy])
     result_re = RandomEffects.from_formula(formula_re, df, check_rank=False).fit()
-    print(result_re)
-    with open('results/basic/results_re.txt', 'w') as f:
-        f.write(str(result_re))
+    print(result_re) 
 
 
 def main():
@@ -105,9 +102,10 @@ def main():
     ]
     create_basic_analysis(df, target_columns, 'results/basic/basic.csv')
     
+
     # 固定効果モデルによる推定
-    df = pd.read_csv('datasets/dummy/dummy_extended.csv')
-    create_model_summary(df)
+    # df = pd.read_csv('datasets/dummy.csv')
+    # create_model_summary(df)
 
 
 if __name__ == '__main__':
