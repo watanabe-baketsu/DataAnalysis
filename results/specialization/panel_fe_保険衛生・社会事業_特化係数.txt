@@ -1,0 +1,35 @@
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:              JP_TARGET   R-squared:                        0.1334
+Estimator:                   PanelOLS   R-squared (Between):             -19.988
+No. Observations:                 184   R-squared (Within):               0.1334
+Date:                Sun, Jan 21 2024   R-squared (Overall):             -19.880
+Time:                        10:50:07   Log-likelihood                    507.55
+Cov. Estimator:            Unadjusted                                           
+                                        F-statistic:                      5.1567
+Entities:                          46   P-value                           0.0007
+Avg Obs:                       4.0000   Distribution:                   F(4,134)
+Min Obs:                       4.0000                                           
+Max Obs:                       4.0000   F-statistic (robust):             80.237
+                                        P-value                           0.0000
+Time periods:                       4   Distribution:                   F(4,134)
+Avg Obs:                       46.000                                           
+Min Obs:                       46.000                                           
+Max Obs:                       46.000                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+EPR           -1.2445     0.2854    -4.3611     0.0000     -1.8089     -0.6801
+CPDI           0.0013     0.0050     0.2658     0.7908     -0.0085      0.0112
+LPSP        5.449e-06  7.163e-06     0.7607     0.4482  -8.718e-06   1.962e-05
+DP          8.392e-05     0.0002     0.4984     0.6190     -0.0002      0.0004
+MLdammy        1.8445     0.7025     2.6256     0.0097      0.4551      3.2339
+==============================================================================
+
+F-test for Poolability: 284.74
+P-value: 0.0000
+Distribution: F(45,134)
+
+Included effects: Entity
