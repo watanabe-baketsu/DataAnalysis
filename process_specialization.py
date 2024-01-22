@@ -126,9 +126,7 @@ class PanelProcessor:
     
     def execute_fe_analysis(self, save_path: str):
         exog = [
-            'MLR', 'ILR', 'LCLR', 'SCLR', 'MDER', 'IDER', 
-            'LCDER', 'SCDER', 'CPR', 'EPR', 'CPDI', 'LPSP', 'EMCW', 
-            'DP', 'MLdammy'
+            'LCLR', 'SCLR', 'EMCW'
         ] + [col for col in self.df.columns if '特化係数' in col]
         result = self._fe_analysis(exog, 'TDER')
         print(result)
@@ -233,8 +231,8 @@ def main():
     # パネルデータ分析
     panel_processor = PanelProcessor('datasets/研究用データ(特化係数追加済み).csv')
     panel_processor.drop_rows_with_missing_values(5)
-    # panel_processor.execute_fe_analysis('results/specialization/panel_fe.txt')
-    panel_processor.execute_fe_analysis_2()
+    panel_processor.execute_fe_analysis('results/specialization/panel_fe_TDER.txt')
+    # panel_processor.execute_fe_analysis_2()
     
 
 
