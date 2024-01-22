@@ -102,6 +102,10 @@ class PanelProcessor:
         """
         固定効果モデルによる分析
         """
+        # if '農林水産業_特化係数' in exog:
+        #     exog.remove('農林水産業_特化係数')
+        # if '不動産業_特化係数' in exog:
+        #     exog.remove('不動産業_特化係数')
         print(self.df)
         print(self.df.columns)
         df_panel = self.df[exog + ['Prefecture_id', 'year', target]]
@@ -113,9 +117,12 @@ class PanelProcessor:
             # 特化係数が列名に含まれる列をアルファベットに置き換える
             coef_columns = [col for col in df_panel.columns if '特化係数' in col]
             alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+            dic = {}
             for i, col in enumerate(coef_columns):
                 df_panel.rename(columns={col: alphabet[i]}, inplace=True)
                 exog = [alphabet[i] if x==col else x for x in exog]
+                dic[col] = alphabet[i]
+            print(dic)
         if '特化係数' in target:
             df_panel.rename(columns={target: 'JP_TARGET'}, inplace=True)
             target = 'JP_TARGET'
@@ -153,6 +160,10 @@ def make_specializationdataset():
 
 def perform_ols_analysis(df, target_year, save_path, target_column='TDER', exog=['LCLR', 'SCLR', 'EMCW']):
     df_target_year = df[df['year'] == target_year]
+    # if '農林水産業_特化係数' in exog:
+    #     exog.remove('農林水産業_特化係数')
+    # if '不動産業_特化係数' in exog:
+    #     exog.remove('不動産業_特化係数')
 
     X_columns = exog
     X = df_target_year[X_columns]
