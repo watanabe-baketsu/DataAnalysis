@@ -40,13 +40,17 @@ class Plotter1:
         axes = axes.flatten()
         
         for ax, column in zip(axes, [col for col in df.columns if col.endswith('_特化係数')]):
-            sns.scatterplot(data=df, x='都道府県実雇用率', y=column, ax=ax)
+            scatter = sns.scatterplot(data=df, x='都道府県実雇用率', y=column, ax=ax)
             ax.set_title(f'都道府県実雇用率と{column}の相関', fontsize=10)  # フォントサイズを調整
             ax.set_xlabel('都道府県実雇用率', fontsize=8)
             ax.set_ylabel(column, fontsize=8)
             
             correlation = df['都道府県実雇用率'].corr(df[column])
             ax.text(0.05, 0.95, f'相関係数: {correlation:.2f}', transform=ax.transAxes, fontsize=8, verticalalignment='top')
+            
+            # プロットした点に都道府県名を表示
+            for line in range(0, df.shape[0]):
+                ax.text(df['都道府県実雇用率'][line], df[column][line], df['pref'][line], horizontalalignment='left', size='small', color='black', weight='semibold')
         
         plt.tight_layout()
         plt.subplots_adjust(wspace=0.4, hspace=0.6)  # スペースを調整
@@ -156,9 +160,9 @@ def exec_plot_3():
         plotter.plot_correlation_effects_2(year, 1000, save_path=f'results/correlation_effects_trw_2/{year}.pdf')
 
 def main():
-    # exec_plot_1(2019)
+    exec_plot_1(2019)
     # exec_plot_2()
-    exec_plot_3()
+    # exec_plot_3()
 
 if __name__ == '__main__':
     main()
